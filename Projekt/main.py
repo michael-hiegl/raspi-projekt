@@ -6,10 +6,10 @@ import busio
 import adafruit_ads1x15.ads1115 as ADS
 from adafruit_ads1x15.analog_in import AnalogIn
 import RPi.GPIO as GPIO
- 
+
 # Initialize the I2C interface
 i2c = busio.I2C(board.SCL, board.SDA)
- 
+
 # Create an ADS1115 object
 ads = ADS.ADS1115(i2c)
  
@@ -20,16 +20,16 @@ channel = AnalogIn(ads, ADS.P0)
 count = 0
 
 # Setup Board
-GPIO.setmode(GPIO.BOARD)
+#GPIO.setmode(GPIO.BOARD) #Uncomment to select BOARD numbering system, Won't work as it's already set to BCM numbering system
 GPIO.setwarnings(False)
 
 # Taster zu Pins zuordnen
-taster1 = 16
-taster2 = 18
+taster1 = 23 #16 for BOARD numbering system
+taster2 = 24 #18 for BOARD numbering system
 
 # Relais zu Pins zuordnen
-relais1 = 38
-relais2 = 40
+relais1 = 20 #38 for BOARD numbering system
+relais2 = 21 #40 for BOARD numbering system
 
 # Setup Taster
 GPIO.setup(taster1, GPIO.IN)
@@ -64,7 +64,7 @@ while channel.voltage > 0.1 and GPIO.input(taster2) == GPIO.HIGH:
     count = count + 1
     time.sleep(0.2)
 
-GPIO.output(relais1, GPIO.LOW)
+GPIO.output(relais2, GPIO.LOW)
 f.close()
 
 
